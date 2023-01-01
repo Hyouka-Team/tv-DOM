@@ -1,6 +1,14 @@
+let search = document.createElement('input')
+let select = document.createElement('select')
+
+// let info = document.createElement('p')
+// info.id = "info"
+// info.style.display = "none"
+// info.innerText = "Please wait till search is completed"
+document.body.append(search,select)
+
 function movieDisplay(){
     makeEpisode(document.body)
-    console.log('hey')
 }
 `• All episodes must be shown 
 • For each episode, AT LEAST following must be displayed: 
@@ -18,9 +26,83 @@ to that site (or the specific episode on that site). See tvmaze.com/api#licensin
 `
 
 function makeEpisode(parentElement,datas){
+    let myOption = document.createElement('option')
+    myOption.innerText = "all"
+
+    myOption.selected === true
+    select.append(myOption)
+
+    function selectSearchFunc(datas){
+        datas.forEach(
+            data => {
+                let myOption = document.createElement('option')
+                myOption.innerText = data.name
+                select.append(myOption)
+            }
+        )
+        select.addEventListener("change",(event)=>{
+            let article = document.getElementsByTagName('article');
+            if(select.value === "all"){
+                for (i = 0; i < article.length; i++) {
+                    article[i].style.display = "block";
+                }
+            }else{
+                for (i = 0; i < article.length; i++) {
+                    // if(article[i].innerText.includes("name: Lügen"))
+                    // {
+                    //     article[i].parentElement.style.display = "none";
+                    // } else{
+                    //     article[i].parentElement.style.display = "none";
+                    // }
+                    // let reg = new RegExp(`${"name: " + select.value!==article[i][0].innerText}`,'i')
+                    if(article[i].innerText.includes("name: " + select.value)){
+                        article[i].style.display = "block"
+                    } else{
+                        article[i].style.display = "none"
+                    }
+                }
+
+            }
+                    // let elements = document.getElementsByTagName('article');
+
+                    // for (i = 0; i < elements.length; i++) {
+                    //     if("name: " + select.value!==article[0].innerText)
+                    //     {article[i].parentElement.style.display = "none";}
+                    // }
+
+        
+                
+                // if(article.childElements()[0].innerText != ){
+                //     article.style.display = 'none'
+                // } else{
+                //     article.style.display = 'block'
+                // }
+            
+})
+
+    }
+    function liveSearchInput(){
+        search.addEventListener('keydown',(event) =>  {
+            if(true){
+                let div = document.getElementsByTagName('article')
+
+                for(article of div){
+                    let reg = new RegExp(`${search.value.toLowerCase()}`,'i')
+                    if(reg.test(article.innerText)){
+                        article.style.display = "block"
+                    } else{
+                        article.style.display = "none"
+                    }
+                }
+
+                    }
+            
+        }
+)
+    
+    }
     for(let i = 0; i < datas.length;i++)
         {
-            console.log(parentElement)
             let [div,name,season,number,image,summary,code] = [
                 document.createElement('article'),
                 document.createElement('h3'),
@@ -47,13 +129,11 @@ function makeEpisode(parentElement,datas){
                             e : datas[i]['number'],
                             s: datas[i]['season']
                         }
-                        console.log()
                         if(text.e.toString.length===1){
                             text.e = '0' + text.e
                         }
                         if(text.s.toString.length===1){
                             text.s = '0' + text.s
-                            console.log(text.s)
                         }
                         let tag = null
                         if(itemsFieldName.keys.includes(j)){
@@ -67,7 +147,6 @@ function makeEpisode(parentElement,datas){
 
                     }
                 } catch(error){
-                    console.log(items)
                     let text = datas[i][items[j][0]]
                     if(text!== undefined){
                         let tag = null
@@ -76,11 +155,10 @@ function makeEpisode(parentElement,datas){
                         } else{
                             tag = items[j][0]
                         }
-                        items[j][1].innerHTML = tag + ": " + text
+                        items[j][1].innerHTML = tag + ": " + text + '\n'
                         items[0][1].append(items[j][1])
 
                     }
-                    console.log()
                 }
                     // item[1].innerText = text
                     // div.append(items[1])
@@ -89,67 +167,8 @@ function makeEpisode(parentElement,datas){
             parentElement.append(items[0][1])
         }    
     // div.append(name,number,image,summary,code)
-    // console.log(div)
-    // datas = datas.map(data=>{
-    //     return [['name',data.name],['number',data.season],['summary',data.summary],['image',data.image.medium,true],['code',data.code]]
-    // })
-    // console.log(datas)
-    // function fillingEpisodeDiv(datas,parentElement){
-    //     for(let i = 0;i<datas.length;i++){
-    //         console.log(i)
-    //         let episodeDiv = {
-    //             div : document.createElement('article'),
-    //             name : document.createElement('h3'),
-    //             num : document.createElement('strong'),
-    //             image : document.createElement('img'),
-    //             summary : document.createElement('p'),
-    //             code : document.createElement('p'),
-    //         }
-            
-    //         for(let j = 0;j<datas[i].length;j++){
-    //             let row = datas[i][j]
-    //             if(row[0]){
-    //                 if(row[2]){
-    //                     // console.log(row[2])
-    //                     episodeDiv.image.src = row[1]
-    //                 }
-    //                 // console.log(row)
-    //                 try{
-    //                     if(episodeDiv[datas[i][j][0]].innerHTML === "undefined"){
-    //                         episodeDiv[row[0]].innerHTML = ""
-
-    //                     } else{
-    //                         episodeDiv[row[0]].innerHTML = row[0] + ': ' + row[1]?row[1]:"what"
-
-
-    //                     }
-
-    //                 }catch(er){
-    //                     console.log()
-
-    //                     // console.log(episodeDiv[datas[i][j][1]] )
-    //                 }
-    //                     episodeDiv['div'].append(episodeDiv[row[0]])
-    //                     // console.log(episodeDiv)
-
-    //             }
-    
-    //         }
-                        // parentElement.appendChild(episodeDiv['div'])
-
-            // }}
-        //     for(row of episode){
-
-        //     }
-        //     console.log(episodeDiv.div)
-        //     console.log('hey')
-
-        // }
-        //request result format is an array e.g [['name','name'],'num',['image','src',true]]
-        
-    // }
-    // }
-    fillingEpisodeDiv(datas,parentElement)
+    liveSearchInput(document.body)
+    selectSearchFunc(datas)
 }
 const episodeReq = async () => {
           const res = await fetch("https://api.tvmaze.com/shows/22036/episodes");
