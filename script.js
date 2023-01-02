@@ -159,13 +159,8 @@ function makeEpisode(parentElement,datas){
     selectSearchFunc(datas)
 }
 const episodeReq = async () => {
-<<<<<<< HEAD
         //   const res = await fetch("https://api.tvmaze.com/shows/22036/episodes");
         const res = await fetch("./api.js");
-=======
-//           const res = await fetch("https://api.tvmaze.com/shows/22036/episodes");
-        const res = await fetch("/api.js");
->>>>>>> 5613950b19b106711cf764845c0a165fe76ec48f
 
         const data = await res.json();
         //   console.log(res,data)
