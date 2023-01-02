@@ -1,11 +1,13 @@
 let search = document.createElement('input')
 let select = document.createElement('select')
-
+search.classList = "w-75"
+select.classList = "w-75"
 // let info = document.createElement('p')
 // info.id = "info"
 // info.style.display = "none"
 // info.innerText = "Please wait till search is completed"
-document.body.append(search,select)
+document.getElementById('livesearch').append(search)
+document.getElementById('jumpinto').append(select)
 
 function movieDisplay(){
     makeEpisode(document.body)
@@ -113,6 +115,7 @@ function makeEpisode(parentElement,datas){
                 document.createElement('p'),
                 document.createElement('p'),
             ]
+            div.classList = "col-12 col-lg-6 shadow p-3 mb-5 bg-white rounded"
             let items = [["div",div],["name",name],["number",number],["season",season],["image",image,[true,"src"]],["summary",summary],["code",code,[true,"code"]]]
             let itemsFieldName = {
                 keys : [2,3,6],
@@ -171,13 +174,13 @@ function makeEpisode(parentElement,datas){
     selectSearchFunc(datas)
 }
 const episodeReq = async () => {
-          const res = await fetch("https://api.tvmaze.com/shows/22036/episodes");
-        //   const res = await fetch("/api.js");
+        //   const res = await fetch("https://api.tvmaze.com/shows/22036/episodes");
+        const res = await fetch("/api.js");
 
-          const data = await res.json();
+        const data = await res.json();
         //   console.log(res,data)
         // console.log(document.body)
-            makeEpisode(document.body,data)
+        makeEpisode(document.getElementById('postcontainer'),data)
           // console.log(data);
 }
 episodeReq()
